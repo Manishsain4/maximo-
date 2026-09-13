@@ -1,348 +1,906 @@
-<div class="countries" id="countries">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- USA -->
-  <div class="country-card" data-country="United States">
-    <div class="country-top">
-      <div class="flag">🇺🇸</div>
-      <div>
-        <div class="country-name">United States</div>
-        <div class="country-code">+1</div>
-      </div>
-    </div>
-    <div class="price">$5.00 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('United States', 5)">
-      Buy Number
-    </button>
+  <title>Virtual Number Store</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #111827;
+    }
+
+    header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: -25px auto 40px;
+      padding: 0 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 17px 20px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.12);
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 0 20px 60px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .title p {
+      color: #6b7280;
+    }
+
+    .countries {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .country-card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+      transition: 0.25s;
+    }
+
+    .country-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .country-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .flag {
+      font-size: 40px;
+    }
+
+    .country-name {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .country-code {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: bold;
+      color: #4f46e5;
+      margin-bottom: 16px;
+    }
+
+    .price span {
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: normal;
+    }
+
+    .buy-btn {
+      width: 100%;
+      border: none;
+      background: #4f46e5;
+      color: white;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .buy-btn:hover {
+      background: #4338ca;
+    }
+
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* Popup */
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .popup-box {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .popup-box h2 {
+      margin-bottom: 12px;
+    }
+
+    .popup-box p {
+      color: #6b7280;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      border: none;
+      background: #ef4444;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 45px 15px;
+      }
+
+      header h1 {
+        font-size: 32px;
+      }
+
+      header p {
+        font-size: 15px;
+      }
+
+      .countries {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <h1>📱 Virtual Number Store</h1>
+    <p>Choose your country and get a virtual number</p>
+  </header>
+
+
+  <!-- SEARCH -->
+
+  <div class="search-box">
+    <input
+      type="text"
+      id="search"
+      placeholder="🔍 Search country..."
+      onkeyup="searchCountry()"
+    >
   </div>
 
-  <!-- India -->
-  <div class="country-card" data-country="India">
-    <div class="country-top">
-      <div class="flag">🇮🇳</div>
-      <div>
-        <div class="country-name">India</div>
-        <div class="country-code">+91</div>
-      </div>
+
+  <!-- COUNTRIES -->
+
+  <main class="container">
+
+    <div class="title">
+      <h2>🌎 Available Countries</h2>
+      <p>Virtual numbers from countries around the world</p>
     </div>
-    <div class="price">$5.00 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('India', 5)">
-      Buy Number
-    </button>
+
+
+    <div class="countries" id="countries">
+
+
+      <!-- USA -->
+
+      <div class="country-card" data-country="United States">
+
+        <div class="country-top">
+          <div class="flag">🇺🇸</div>
+
+          <div>
+            <div class="country-name">United States</div>
+            <div class="country-code">+1</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $5.00 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('United States', '5.00')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- INDIA -->
+
+      <div class="country-card" data-country="India">
+
+        <div class="country-top">
+          <div class="flag">🇮🇳</div>
+
+          <div>
+            <div class="country-name">India</div>
+            <div class="country-code">+91</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $5.00 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('India', '5.00')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- CHINA -->
+
+      <div class="country-card" data-country="China">
+
+        <div class="country-top">
+          <div class="flag">🇨🇳</div>
+
+          <div>
+            <div class="country-name">China</div>
+            <div class="country-code">+86</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $2.00 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('China', '2.00')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- ETHIOPIA -->
+
+      <div class="country-card" data-country="Ethiopia">
+
+        <div class="country-top">
+          <div class="flag">🇪🇹</div>
+
+          <div>
+            <div class="country-name">Ethiopia</div>
+            <div class="country-code">+251</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Ethiopia', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- UK -->
+
+      <div class="country-card" data-country="United Kingdom">
+
+        <div class="country-top">
+          <div class="flag">🇬🇧</div>
+
+          <div>
+            <div class="country-name">United Kingdom</div>
+            <div class="country-code">+44</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('United Kingdom', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- GERMANY -->
+
+      <div class="country-card" data-country="Germany">
+
+        <div class="country-top">
+          <div class="flag">🇩🇪</div>
+
+          <div>
+            <div class="country-name">Germany</div>
+            <div class="country-code">+49</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Germany', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- FRANCE -->
+
+      <div class="country-card" data-country="France">
+
+        <div class="country-top">
+          <div class="flag">🇫🇷</div>
+
+          <div>
+            <div class="country-name">France</div>
+            <div class="country-code">+33</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('France', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- ITALY -->
+
+      <div class="country-card" data-country="Italy">
+
+        <div class="country-top">
+          <div class="flag">🇮🇹</div>
+
+          <div>
+            <div class="country-name">Italy</div>
+            <div class="country-code">+39</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Italy', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- SPAIN -->
+
+      <div class="country-card" data-country="Spain">
+
+        <div class="country-top">
+          <div class="flag">🇪🇸</div>
+
+          <div>
+            <div class="country-name">Spain</div>
+            <div class="country-code">+34</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Spain', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- NETHERLANDS -->
+
+      <div class="country-card" data-country="Netherlands">
+
+        <div class="country-top">
+          <div class="flag">🇳🇱</div>
+
+          <div>
+            <div class="country-name">Netherlands</div>
+            <div class="country-code">+31</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Netherlands', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- RUSSIA -->
+
+      <div class="country-card" data-country="Russia">
+
+        <div class="country-top">
+          <div class="flag">🇷🇺</div>
+
+          <div>
+            <div class="country-name">Russia</div>
+            <div class="country-code">+7</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Russia', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- JAPAN -->
+
+      <div class="country-card" data-country="Japan">
+
+        <div class="country-top">
+          <div class="flag">🇯🇵</div>
+
+          <div>
+            <div class="country-name">Japan</div>
+            <div class="country-code">+81</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Japan', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- SOUTH KOREA -->
+
+      <div class="country-card" data-country="South Korea">
+
+        <div class="country-top">
+          <div class="flag">🇰🇷</div>
+
+          <div>
+            <div class="country-name">South Korea</div>
+            <div class="country-code">+82</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('South Korea', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- AUSTRALIA -->
+
+      <div class="country-card" data-country="Australia">
+
+        <div class="country-top">
+          <div class="flag">🇦🇺</div>
+
+          <div>
+            <div class="country-name">Australia</div>
+            <div class="country-code">+61</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Australia', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- BRAZIL -->
+
+      <div class="country-card" data-country="Brazil">
+
+        <div class="country-top">
+          <div class="flag">🇧🇷</div>
+
+          <div>
+            <div class="country-name">Brazil</div>
+            <div class="country-code">+55</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Brazil', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- SOUTH AFRICA -->
+
+      <div class="country-card" data-country="South Africa">
+
+        <div class="country-top">
+          <div class="flag">🇿🇦</div>
+
+          <div>
+            <div class="country-name">South Africa</div>
+            <div class="country-code">+27</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('South Africa', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- NIGERIA -->
+
+      <div class="country-card" data-country="Nigeria">
+
+        <div class="country-top">
+          <div class="flag">🇳🇬</div>
+
+          <div>
+            <div class="country-name">Nigeria</div>
+            <div class="country-code">+234</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Nigeria', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- KENYA -->
+
+      <div class="country-card" data-country="Kenya">
+
+        <div class="country-top">
+          <div class="flag">🇰🇪</div>
+
+          <div>
+            <div class="country-name">Kenya</div>
+            <div class="country-code">+254</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Kenya', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- GHANA -->
+
+      <div class="country-card" data-country="Ghana">
+
+        <div class="country-top">
+          <div class="flag">🇬🇭</div>
+
+          <div>
+            <div class="country-name">Ghana</div>
+            <div class="country-code">+233</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Ghana', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- EGYPT -->
+
+      <div class="country-card" data-country="Egypt">
+
+        <div class="country-top">
+          <div class="flag">🇪🇬</div>
+
+          <div>
+            <div class="country-name">Egypt</div>
+            <div class="country-code">+20</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $1.50 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Egypt', '1.50')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- UAE -->
+
+      <div class="country-card" data-country="United Arab Emirates">
+
+        <div class="country-top">
+          <div class="flag">🇦🇪</div>
+
+          <div>
+            <div class="country-name">United Arab Emirates</div>
+            <div class="country-code">+971</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $2.00 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('United Arab Emirates', '2.00')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+      <!-- SINGAPORE -->
+
+      <div class="country-card" data-country="Singapore">
+
+        <div class="country-top">
+          <div class="flag">🇸🇬</div>
+
+          <div>
+            <div class="country-name">Singapore</div>
+            <div class="country-code">+65</div>
+          </div>
+        </div>
+
+        <div class="price">
+          $2.00 <span>/ number</span>
+        </div>
+
+        <button class="buy-btn"
+          onclick="buyNumber('Singapore', '2.00')">
+          Buy Number
+        </button>
+
+      </div>
+
+
+    </div>
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 Virtual Number Store
+  </footer>
+
+
+  <!-- BUY POPUP -->
+
+  <div class="popup" id="popup">
+
+    <div class="popup-box">
+
+      <h2>🛒 Buy Number</h2>
+
+      <p id="popupText"></p>
+
+      <button class="close-btn" onclick="closePopup()">
+        Close
+      </button>
+
+    </div>
+
   </div>
 
-  <!-- China -->
-  <div class="country-card" data-country="China">
-    <div class="country-top">
-      <div class="flag">🇨🇳</div>
-      <div>
-        <div class="country-name">China</div>
-        <div class="country-code">+86</div>
-      </div>
-    </div>
-    <div class="price">$2.00 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('China', 2)">
-      Buy Number
-    </button>
-  </div>
 
-  <!-- Ethiopia -->
-  <div class="country-card" data-country="Ethiopia">
-    <div class="country-top">
-      <div class="flag">🇪🇹</div>
-      <div>
-        <div class="country-name">Ethiopia</div>
-        <div class="country-code">+251</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Ethiopia', 1.5)">
-      Buy Number
-    </button>
-  </div>
+  <!-- JAVASCRIPT -->
 
-  <!-- UK -->
-  <div class="country-card" data-country="United Kingdom">
-    <div class="country-top">
-      <div class="flag">🇬🇧</div>
-      <div>
-        <div class="country-name">United Kingdom</div>
-        <div class="country-code">+44</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('United Kingdom', 1.5)">
-      Buy Number
-    </button>
-  </div>
+  <script>
 
-  <!-- Germany -->
-  <div class="country-card" data-country="Germany">
-    <div class="country-top">
-      <div class="flag">🇩🇪</div>
-      <div>
-        <div class="country-name">Germany</div>
-        <div class="country-code">+49</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Germany', 1.5)">
-      Buy Number
-    </button>
-  </div>
+    function searchCountry() {
 
-  <!-- France -->
-  <div class="country-card" data-country="France">
-    <div class="country-top">
-      <div class="flag">🇫🇷</div>
-      <div>
-        <div class="country-name">France</div>
-        <div class="country-code">+33</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('France', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
 
-  <!-- Italy -->
-  <div class="country-card" data-country="Italy">
-    <div class="country-top">
-      <div class="flag">🇮🇹</div>
-      <div>
-        <div class="country-name">Italy</div>
-        <div class="country-code">+39</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Italy', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      const cards =
+        document.querySelectorAll(".country-card");
 
-  <!-- Spain -->
-  <div class="country-card" data-country="Spain">
-    <div class="country-top">
-      <div class="flag">🇪🇸</div>
-      <div>
-        <div class="country-name">Spain</div>
-        <div class="country-code">+34</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Spain', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      cards.forEach(function(card) {
 
-  <!-- Netherlands -->
-  <div class="country-card" data-country="Netherlands">
-    <div class="country-top">
-      <div class="flag">🇳🇱</div>
-      <div>
-        <div class="country-name">Netherlands</div>
-        <div class="country-code">+31</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Netherlands', 1.5)">
-      Buy Number
-    </button>
-  </div>
+        const country =
+          card.getAttribute("data-country")
+          .toLowerCase();
 
-  <!-- Russia -->
-  <div class="country-card" data-country="Russia">
-    <div class="country-top">
-      <div class="flag">🇷🇺</div>
-      <div>
-        <div class="country-name">Russia</div>
-        <div class="country-code">+7</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Russia', 1.5)">
-      Buy Number
-    </button>
-  </div>
+        if (country.includes(search)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
 
-  <!-- Japan -->
-  <div class="country-card" data-country="Japan">
-    <div class="country-top">
-      <div class="flag">🇯🇵</div>
-      <div>
-        <div class="country-name">Japan</div>
-        <div class="country-code">+81</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Japan', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      });
 
-  <!-- South Korea -->
-  <div class="country-card" data-country="South Korea">
-    <div class="country-top">
-      <div class="flag">🇰🇷</div>
-      <div>
-        <div class="country-name">South Korea</div>
-        <div class="country-code">+82</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('South Korea', 1.5)">
-      Buy Number
-    </button>
-  </div>
+    }
 
-  <!-- Australia -->
-  <div class="country-card" data-country="Australia">
-    <div class="country-top">
-      <div class="flag">🇦🇺</div>
-      <div>
-        <div class="country-name">Australia</div>
-        <div class="country-code">+61</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Australia', 1.5)">
-      Buy Number
-    </button>
-  </div>
 
-  <!-- Brazil -->
-  <div class="country-card" data-country="Brazil">
-    <div class="country-top">
-      <div class="flag">🇧🇷</div>
-      <div>
-        <div class="country-name">Brazil</div>
-        <div class="country-code">+55</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Brazil', 1.5)">
-      Buy Number
-    </button>
-  </div>
+    function buyNumber(country, price) {
 
-  <!-- South Africa -->
-  <div class="country-card" data-country="South Africa">
-    <div class="country-top">
-      <div class="flag">🇿🇦</div>
-      <div>
-        <div class="country-name">South Africa</div>
-        <div class="country-code">+27</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('South Africa', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      const popup =
+        document.getElementById("popup");
 
-  <!-- Nigeria -->
-  <div class="country-card" data-country="Nigeria">
-    <div class="country-top">
-      <div class="flag">🇳🇬</div>
-      <div>
-        <div class="country-name">Nigeria</div>
-        <div class="country-code">+234</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Nigeria', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      const text =
+        document.getElementById("popupText");
 
-  <!-- Kenya -->
-  <div class="country-card" data-country="Kenya">
-    <div class="country-top">
-      <div class="flag">🇰🇪</div>
-      <div>
-        <div class="country-name">Kenya</div>
-        <div class="country-code">+254</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Kenya', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      text.innerHTML =
+        "You selected <b>" +
+        country +
+        "</b>.<br><br>" +
+        "Price: <b>$" +
+        price +
+        "</b><br><br>" +
+        "Payment and number delivery will be connected here.";
 
-  <!-- Ghana -->
-  <div class="country-card" data-country="Ghana">
-    <div class="country-top">
-      <div class="flag">🇬🇭</div>
-      <div>
-        <div class="country-name">Ghana</div>
-        <div class="country-code">+233</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Ghana', 1.5)">
-      Buy Number
-    </button>
-  </div>
+      popup.style.display = "flex";
 
-  <!-- Egypt -->
-  <div class="country-card" data-country="Egypt">
-    <div class="country-top">
-      <div class="flag">🇪🇬</div>
-      <div>
-        <div class="country-name">Egypt</div>
-        <div class="country-code">+20</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Egypt', 1.5)">
-      Buy Number
-    </button>
-  </div>
+    }
 
-  <!-- Ethiopia -->
-  <div class="country-card" data-country="Ethiopia">
-    <div class="country-top">
-      <div class="flag">🇪🇹</div>
-      <div>
-        <div class="country-name">Ethiopia</div>
-        <div class="country-code">+251</div>
-      </div>
-    </div>
-    <div class="price">$1.50 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Ethiopia', 1.5)">
-      Buy Number
-    </button>
-  </div>
 
-  <!-- UAE -->
-  <div class="country-card" data-country="United Arab Emirates">
-    <div class="country-top">
-      <div class="flag">🇦🇪</div>
-      <div>
-        <div class="country-name">UAE</div>
-        <div class="country-code">+971</div>
-      </div>
-    </div>
-    <div class="price">$2.00 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('UAE', 2)">
-      Buy Number
-    </button>
-  </div>
+    function closePopup() {
 
-  <!-- Singapore -->
-  <div class="country-card" data-country="Singapore">
-    <div class="country-top">
-      <div class="flag">🇸🇬</div>
-      <div>
-        <div class="country-name">Singapore</div>
-        <div class="country-code">+65</div>
-      </div>
-    </div>
-    <div class="price">$2.00 <span>/ number</span></div>
-    <button class="get-btn" onclick="buyNumber('Singapore', 2)">
-      Buy Number
-    </button>
-  </div>
+      document.getElementById("popup")
+      .style.display = "none";
 
-</div>
+    }
+
+
+    window.onclick = function(event) {
+
+      const popup =
+        document.getElementById("popup");
+
+      if (event.target === popup) {
+        popup.style.display = "none";
+      }
+
+    };
+
+  </script>
+
+</body>
+</html>
