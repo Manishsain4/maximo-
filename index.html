@@ -1,192 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Virtual Number</title>
+<script>
+function buyNumber(country, price) {
+  alert(
+    "Country: " + country +
+    "\nPrice: $" + price.toFixed(2) +
+    "\n\nPayment/number API will be connected here."
+  );
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+function searchCountry() {
+  const search = document
+    .getElementById("search")
+    .value
+    .toLowerCase();
 
-    body {
-      background: #f5f7fb;
-      color: #111827;
-    }
+  const cards = document.querySelectorAll(".country-card");
 
-    header {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      color: white;
-      text-align: center;
-      padding: 55px 20px;
-    }
+  cards.forEach(card => {
+    const country = card
+      .getAttribute("data-country")
+      .toLowerCase();
 
-    header h1 {
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-
-    header p {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-
-    .search-box {
-      max-width: 600px;
-      margin: -25px auto 35px;
-      padding: 0 20px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 17px 20px;
-      border: none;
-      border-radius: 14px;
-      font-size: 16px;
-      outline: none;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 0 20px 50px;
-    }
-
-    .title {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .title h2 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    .title p {
-      color: #6b7280;
-    }
-
-    .countries {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .country-card {
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-      transition: 0.25s;
-    }
-
-    .country-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
-
-    .country-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .flag {
-      font-size: 38px;
-    }
-
-    .country-name {
-      font-size: 19px;
-      font-weight: bold;
-    }
-
-    .country-code {
-      color: #6b7280;
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    .price {
-      font-size: 25px;
-      font-weight: bold;
-      color: #4f46e5;
-      margin-bottom: 16px;
-    }
-
-    .price span {
-      font-size: 14px;
-      color: #6b7280;
-      font-weight: normal;
-    }
-
-    .get-btn {
-      width: 100%;
-      border: none;
-      background: #4f46e5;
-      color: white;
-      padding: 13px;
-      border-radius: 10px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .get-btn:hover {
-      background: #4338ca;
-    }
-
-    footer {
-      text-align: center;
-      background: #111827;
-      color: #9ca3af;
-      padding: 25px;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 32px;
-      }
-
-      header p {
-        font-size: 16px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <h1>📱 Free Virtual Number</h1>
-    <p>Get virtual phone numbers from countries around the world</p>
-  </header>
-
-  <div class="search-box">
-    <input
-      type="text"
-      id="search"
-      placeholder="🔍 Search country..."
-      onkeyup="searchCountry()"
-    >
-  </div>
-
-  <main class="container">
-
-    <div class="title">
-      <h2>🌎 Available Countries</h2>
-      <p>Choose a country and get your virtual number</p>
-    </div>
-
-    <div class="countries" id="countries">
-
-      <div class="country-card" data-country="United States">
-        <div class="country-top">
-          <div class="flag">🇺🇸</div>
-          <div>
-            <div class="country-name">
+    card.style.display =
+      country.includes(search) ? "block" : "none";
+  });
+}
+</script>
