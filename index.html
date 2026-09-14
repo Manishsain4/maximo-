@@ -1,213 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Virtual Number Store</title>
+  <title>VideoHub — Short Video Community</title>
 
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
     }
 
     body {
-      background: #f5f7fb;
-      color: #111827;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0f;
+      color: #fff;
+      min-height: 100vh;
     }
+
+    /* HEADER */
 
     header {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      color: white;
-      text-align: center;
-      padding: 60px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 11, 15, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #24242d;
     }
 
-    header h1 {
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-
-    header p {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-
-    .search-box {
-      max-width: 600px;
-      margin: -25px auto 40px;
-      padding: 0 20px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 17px 20px;
-      border: none;
-      border-radius: 14px;
-      font-size: 16px;
-      outline: none;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.12);
-    }
-
-    .container {
-      max-width: 1150px;
+    .nav {
+      max-width: 1100px;
       margin: auto;
-      padding: 0 20px 60px;
-    }
-
-    .title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .title h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .title p {
-      color: #6b7280;
-    }
-
-    .countries {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .country-card {
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-      transition: 0.25s;
-    }
-
-    .country-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    }
-
-    .country-top {
+      padding: 16px 20px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .logo span {
+      color: #ff2d55;
+    }
+
+    .upload-btn {
+      border: none;
+      background: #ff2d55;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .upload-btn:hover {
+      background: #ff1747;
+    }
+
+    /* HERO */
+
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 65px 20px 35px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(35px, 7vw, 65px);
+      line-height: 1.05;
       margin-bottom: 18px;
     }
 
-    .flag {
-      font-size: 40px;
+    .hero h1 span {
+      color: #ff2d55;
     }
 
-    .country-name {
-      font-size: 19px;
-      font-weight: bold;
-    }
-
-    .country-code {
-      color: #6b7280;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .price {
-      font-size: 26px;
-      font-weight: bold;
-      color: #4f46e5;
-      margin-bottom: 16px;
-    }
-
-    .price span {
-      font-size: 14px;
-      color: #6b7280;
-      font-weight: normal;
-    }
-
-    .buy-btn {
-      width: 100%;
-      border: none;
-      background: #4f46e5;
-      color: white;
-      padding: 14px;
-      border-radius: 10px;
+    .hero p {
+      color: #a7a7b1;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.7;
       font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
     }
 
-    .buy-btn:hover {
-      background: #4338ca;
-    }
+    /* UPLOAD CARD */
 
-    footer {
-      background: #111827;
-      color: #9ca3af;
-      text-align: center;
-      padding: 25px;
-    }
-
-    /* Popup */
-
-    .popup {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      align-items: center;
-      justify-content: center;
+    .upload-section {
+      max-width: 720px;
+      margin: 30px auto 60px;
       padding: 20px;
     }
 
-    .popup-box {
-      background: white;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 18px;
-      padding: 30px;
-      text-align: center;
+    .card {
+      background: #15151c;
+      border: 1px solid #292934;
+      border-radius: 22px;
+      padding: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
     }
 
-    .popup-box h2 {
+    .card h2 {
+      margin-bottom: 8px;
+    }
+
+    .subtext {
+      color: #92929e;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .drop-zone {
+      border: 2px dashed #3b3b49;
+      border-radius: 18px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: #ff2d55;
+      background: rgba(255, 45, 85, 0.05);
+    }
+
+    .drop-icon {
+      font-size: 45px;
       margin-bottom: 12px;
     }
 
-    .popup-box p {
-      color: #6b7280;
-      margin-bottom: 20px;
-      line-height: 1.6;
+    .drop-zone h3 {
+      margin-bottom: 8px;
     }
 
-    .close-btn {
-      border: none;
-      background: #ef4444;
+    .drop-zone p {
+      color: #858591;
+      font-size: 13px;
+    }
+
+    #videoInput {
+      display: none;
+    }
+
+    /* FORM */
+
+    .form-area {
+      display: none;
+      margin-top: 25px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin: 15px 0 7px;
+      color: #ddd;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #33333f;
+      background: #0f0f14;
       color: white;
-      padding: 12px 25px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-weight: bold;
+      border-radius: 12px;
+      padding: 13px;
+      outline: none;
+      font-size: 14px;
     }
 
-    @media (max-width: 600px) {
+    input:focus,
+    textarea:focus {
+      border-color: #ff2d55;
+    }
 
-      header {
-        padding: 45px 15px;
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* VIDEO */
+
+    .preview-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-height: 430px;
+      border-radius: 15px;
+      background: black;
+    }
+
+    .video-info {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .valid {
+      color: #3ddc84;
+    }
+
+    .invalid {
+      color: #ff526d;
+    }
+
+    /* UPLOAD ACTION */
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #ff2d55;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* PROGRESS */
+
+    .progress-area {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .progress-bar {
+      height: 9px;
+      background: #292934;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #ff2d55;
+      transition: width 0.2s;
+    }
+
+    .progress-text {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 7px;
+      text-align: center;
+    }
+
+    /* COMMUNITY */
+
+    .community {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .community h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .video-card {
+      background: #15151c;
+      border: 1px solid #292934;
+      border-radius: 17px;
+      overflow: hidden;
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+    .video-card-content {
+      padding: 15px;
+    }
+
+    .video-card h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .video-card p {
+      color: #9999a4;
+      font-size: 13px;
+    }
+
+    /* NOTICE */
+
+    .notice {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .notice-box {
+      background: #17171f;
+      border: 1px solid #30303b;
+      border-radius: 16px;
+      padding: 20px;
+      color: #a8a8b3;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid #24242d;
+      margin-top: 70px;
+      padding: 30px 20px;
+      text-align: center;
+      color: #777783;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .videos-grid {
+        grid-template-columns: 1fr 1fr;
       }
+    }
 
-      header h1 {
-        font-size: 32px;
-      }
-
-      header p {
-        font-size: 15px;
-      }
-
-      .countries {
+    @media (max-width: 550px) {
+      .videos-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .upload-section {
+        padding: 12px;
       }
     }
   </style>
@@ -218,687 +374,739 @@
   <!-- HEADER -->
 
   <header>
-    <h1>📱 Virtual Number Store</h1>
-    <p>Choose your country and get a virtual number</p>
+    <div class="nav">
+      <div class="logo">
+        Video<span>Hub</span>
+      </div>
+
+      <button
+        class="upload-btn"
+        onclick="scrollToUpload()">
+        + Upload Video
+      </button>
+    </div>
   </header>
 
 
-  <!-- SEARCH -->
+  <!-- HERO -->
 
-  <div class="search-box">
-    <input
-      type="text"
-      id="search"
-      placeholder="🔍 Search country..."
-      onkeyup="searchCountry()"
-    >
-  </div>
+  <section class="hero">
+    <h1>
+      Share Your
+      <span>Short Video</span>
+    </h1>
+
+    <p>
+      Welcome to VideoHub — a community where anyone can
+      share short videos. Upload a video between
+      <b>60 and 90 seconds</b> and share your creativity.
+    </p>
+  </section>
 
 
-  <!-- COUNTRIES -->
+  <!-- UPLOAD -->
 
-  <main class="container">
+  <section class="upload-section" id="uploadSection">
 
-    <div class="title">
-      <h2>🌎 Available Countries</h2>
-      <p>Virtual numbers from countries around the world</p>
+    <div class="card">
+
+      <h2>Upload a Video</h2>
+
+      <p class="subtext">
+        Videos must be between 1 minute and 1.5 minutes long.
+      </p>
+
+
+      <!-- DROP AREA -->
+
+      <div
+        class="drop-zone"
+        id="dropZone"
+        onclick="document.getElementById('videoInput').click()">
+
+        <div class="drop-icon">🎬</div>
+
+        <h3>Select your video</h3>
+
+        <p>
+          Click here or drag & drop your video
+        </p>
+
+        <p style="margin-top:8px;">
+          MP4, WebM or MOV
+        </p>
+
+      </div>
+
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/mp4,video/webm,video/quicktime"
+      />
+
+
+      <!-- VIDEO PREVIEW -->
+
+      <div
+        class="preview-container"
+        id="previewContainer">
+
+        <video
+          id="videoPreview"
+          controls>
+        </video>
+
+        <div class="video-info">
+          <span id="durationText">
+            Duration: -
+          </span>
+
+          <span id="durationStatus">
+            -
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- FORM -->
+
+      <div
+        class="form-area"
+        id="formArea">
+
+        <label for="memberName">
+          Your Name
+        </label>
+
+        <input
+          type="text"
+          id="memberName"
+          placeholder="Enter your name"
+          maxlength="50"
+        />
+
+
+        <label for="videoTitle">
+          Video Title
+        </label>
+
+        <input
+          type="text"
+          id="videoTitle"
+          placeholder="Give your video a title"
+          maxlength="100"
+        />
+
+
+        <label for="description">
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          placeholder="Tell people about your video..."
+          maxlength="500">
+        </textarea>
+
+
+        <button
+          class="submit-btn"
+          id="submitBtn"
+          disabled
+          onclick="uploadVideo()">
+
+          Upload Video
+
+        </button>
+
+
+        <!-- PROGRESS -->
+
+        <div
+          class="progress-area"
+          id="progressArea">
+
+          <div class="progress-bar">
+
+            <div
+              class="progress-fill"
+              id="progressFill">
+            </div>
+
+          </div>
+
+          <div
+            class="progress-text"
+            id="progressText">
+
+            Uploading...
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
+  </section>
 
-    <div class="countries" id="countries">
 
+  <!-- COMMUNITY VIDEOS -->
 
-      <!-- USA -->
+  <section class="community">
 
-      <div class="country-card" data-country="United States">
+    <h2>Community Videos</h2>
 
-        <div class="country-top">
-          <div class="flag">🇺🇸</div>
+    <div
+      class="videos-grid"
+      id="videosGrid">
 
-          <div>
-            <div class="country-name">United States</div>
-            <div class="country-code">+1</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $5.00 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('United States', '5.00')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- INDIA -->
-
-      <div class="country-card" data-country="India">
-
-        <div class="country-top">
-          <div class="flag">🇮🇳</div>
-
-          <div>
-            <div class="country-name">India</div>
-            <div class="country-code">+91</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $5.00 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('India', '5.00')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- CHINA -->
-
-      <div class="country-card" data-country="China">
-
-        <div class="country-top">
-          <div class="flag">🇨🇳</div>
-
-          <div>
-            <div class="country-name">China</div>
-            <div class="country-code">+86</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $2.00 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('China', '2.00')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- ETHIOPIA -->
-
-      <div class="country-card" data-country="Ethiopia">
-
-        <div class="country-top">
-          <div class="flag">🇪🇹</div>
-
-          <div>
-            <div class="country-name">Ethiopia</div>
-            <div class="country-code">+251</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Ethiopia', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- UK -->
-
-      <div class="country-card" data-country="United Kingdom">
-
-        <div class="country-top">
-          <div class="flag">🇬🇧</div>
-
-          <div>
-            <div class="country-name">United Kingdom</div>
-            <div class="country-code">+44</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('United Kingdom', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- GERMANY -->
-
-      <div class="country-card" data-country="Germany">
-
-        <div class="country-top">
-          <div class="flag">🇩🇪</div>
-
-          <div>
-            <div class="country-name">Germany</div>
-            <div class="country-code">+49</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Germany', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- FRANCE -->
-
-      <div class="country-card" data-country="France">
-
-        <div class="country-top">
-          <div class="flag">🇫🇷</div>
-
-          <div>
-            <div class="country-name">France</div>
-            <div class="country-code">+33</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('France', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- ITALY -->
-
-      <div class="country-card" data-country="Italy">
-
-        <div class="country-top">
-          <div class="flag">🇮🇹</div>
-
-          <div>
-            <div class="country-name">Italy</div>
-            <div class="country-code">+39</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Italy', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- SPAIN -->
-
-      <div class="country-card" data-country="Spain">
-
-        <div class="country-top">
-          <div class="flag">🇪🇸</div>
-
-          <div>
-            <div class="country-name">Spain</div>
-            <div class="country-code">+34</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Spain', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- NETHERLANDS -->
-
-      <div class="country-card" data-country="Netherlands">
-
-        <div class="country-top">
-          <div class="flag">🇳🇱</div>
-
-          <div>
-            <div class="country-name">Netherlands</div>
-            <div class="country-code">+31</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Netherlands', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- RUSSIA -->
-
-      <div class="country-card" data-country="Russia">
-
-        <div class="country-top">
-          <div class="flag">🇷🇺</div>
-
-          <div>
-            <div class="country-name">Russia</div>
-            <div class="country-code">+7</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Russia', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- JAPAN -->
-
-      <div class="country-card" data-country="Japan">
-
-        <div class="country-top">
-          <div class="flag">🇯🇵</div>
-
-          <div>
-            <div class="country-name">Japan</div>
-            <div class="country-code">+81</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Japan', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- SOUTH KOREA -->
-
-      <div class="country-card" data-country="South Korea">
-
-        <div class="country-top">
-          <div class="flag">🇰🇷</div>
-
-          <div>
-            <div class="country-name">South Korea</div>
-            <div class="country-code">+82</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('South Korea', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- AUSTRALIA -->
-
-      <div class="country-card" data-country="Australia">
-
-        <div class="country-top">
-          <div class="flag">🇦🇺</div>
-
-          <div>
-            <div class="country-name">Australia</div>
-            <div class="country-code">+61</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Australia', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- BRAZIL -->
-
-      <div class="country-card" data-country="Brazil">
-
-        <div class="country-top">
-          <div class="flag">🇧🇷</div>
-
-          <div>
-            <div class="country-name">Brazil</div>
-            <div class="country-code">+55</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Brazil', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- SOUTH AFRICA -->
-
-      <div class="country-card" data-country="South Africa">
-
-        <div class="country-top">
-          <div class="flag">🇿🇦</div>
-
-          <div>
-            <div class="country-name">South Africa</div>
-            <div class="country-code">+27</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('South Africa', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- NIGERIA -->
-
-      <div class="country-card" data-country="Nigeria">
-
-        <div class="country-top">
-          <div class="flag">🇳🇬</div>
-
-          <div>
-            <div class="country-name">Nigeria</div>
-            <div class="country-code">+234</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Nigeria', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- KENYA -->
-
-      <div class="country-card" data-country="Kenya">
-
-        <div class="country-top">
-          <div class="flag">🇰🇪</div>
-
-          <div>
-            <div class="country-name">Kenya</div>
-            <div class="country-code">+254</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Kenya', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- GHANA -->
-
-      <div class="country-card" data-country="Ghana">
-
-        <div class="country-top">
-          <div class="flag">🇬🇭</div>
-
-          <div>
-            <div class="country-name">Ghana</div>
-            <div class="country-code">+233</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Ghana', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- EGYPT -->
-
-      <div class="country-card" data-country="Egypt">
-
-        <div class="country-top">
-          <div class="flag">🇪🇬</div>
-
-          <div>
-            <div class="country-name">Egypt</div>
-            <div class="country-code">+20</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $1.50 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Egypt', '1.50')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- UAE -->
-
-      <div class="country-card" data-country="United Arab Emirates">
-
-        <div class="country-top">
-          <div class="flag">🇦🇪</div>
-
-          <div>
-            <div class="country-name">United Arab Emirates</div>
-            <div class="country-code">+971</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $2.00 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('United Arab Emirates', '2.00')">
-          Buy Number
-        </button>
-
-      </div>
-
-
-      <!-- SINGAPORE -->
-
-      <div class="country-card" data-country="Singapore">
-
-        <div class="country-top">
-          <div class="flag">🇸🇬</div>
-
-          <div>
-            <div class="country-name">Singapore</div>
-            <div class="country-code">+65</div>
-          </div>
-        </div>
-
-        <div class="price">
-          $2.00 <span>/ number</span>
-        </div>
-
-        <button class="buy-btn"
-          onclick="buyNumber('Singapore', '2.00')">
-          Buy Number
-        </button>
-
-      </div>
-
+      <!-- Uploaded videos will appear here -->
 
     </div>
-  </main>
+
+  </section>
+
+
+  <!-- INFORMATION -->
+
+  <section class="notice">
+
+    <div class="notice-box">
+
+      <b>📌 Upload Rules</b>
+
+      <br><br>
+
+      • Video length must be between
+      <b>60 and 90 seconds</b>.
+
+      <br>
+
+      • Supported formats:
+      MP4, WebM and MOV.
+
+      <br>
+
+      • Please upload content that you have
+      permission to share.
+
+      <br>
+
+      • Be respectful to other community members.
+
+    </div>
+
+  </section>
 
 
   <!-- FOOTER -->
 
   <footer>
-    © 2026 Virtual Number Store
+
+    © 2026 VideoHub — Short Video Community
+
   </footer>
 
 
-  <!-- BUY POPUP -->
-
-  <div class="popup" id="popup">
-
-    <div class="popup-box">
-
-      <h2>🛒 Buy Number</h2>
-
-      <p id="popupText"></p>
-
-      <button class="close-btn" onclick="closePopup()">
-        Close
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- JAVASCRIPT -->
-
   <script>
 
-    function searchCountry() {
+    const videoInput =
+      document.getElementById("videoInput");
 
-      const search =
-        document.getElementById("search")
-        .value
-        .toLowerCase();
+    const dropZone =
+      document.getElementById("dropZone");
 
-      const cards =
-        document.querySelectorAll(".country-card");
+    const videoPreview =
+      document.getElementById("videoPreview");
 
-      cards.forEach(function(card) {
+    const previewContainer =
+      document.getElementById("previewContainer");
 
-        const country =
-          card.getAttribute("data-country")
-          .toLowerCase();
+    const formArea =
+      document.getElementById("formArea");
 
-        if (country.includes(search)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
+    const submitBtn =
+      document.getElementById("submitBtn");
+
+    const durationText =
+      document.getElementById("durationText");
+
+    const durationStatus =
+      document.getElementById("durationStatus");
+
+    let selectedFile = null;
+    let videoIsValid = false;
+
+
+    /* FILE SELECT */
+
+    videoInput.addEventListener(
+      "change",
+      function () {
+
+        if (this.files.length > 0) {
+
+          handleVideo(this.files[0]);
+
         }
 
-      });
-
-    }
-
-
-    function buyNumber(country, price) {
-
-      const popup =
-        document.getElementById("popup");
-
-      const text =
-        document.getElementById("popupText");
-
-      text.innerHTML =
-        "You selected <b>" +
-        country +
-        "</b>.<br><br>" +
-        "Price: <b>$" +
-        price +
-        "</b><br><br>" +
-        "Payment and number delivery will be connected here.";
-
-      popup.style.display = "flex";
-
-    }
+      }
+    );
 
 
-    function closePopup() {
+    /* DRAG & DROP */
 
-      document.getElementById("popup")
-      .style.display = "none";
+    dropZone.addEventListener(
+      "dragover",
+      function (event) {
 
-    }
+        event.preventDefault();
+
+        dropZone.classList.add("dragover");
+
+      }
+    );
 
 
-    window.onclick = function(event) {
+    dropZone.addEventListener(
+      "dragleave",
+      function () {
 
-      const popup =
-        document.getElementById("popup");
+        dropZone.classList.remove("dragover");
 
-      if (event.target === popup) {
-        popup.style.display = "none";
+      }
+    );
+
+
+    dropZone.addEventListener(
+      "drop",
+      function (event) {
+
+        event.preventDefault();
+
+        dropZone.classList.remove("dragover");
+
+        const file =
+          event.dataTransfer.files[0];
+
+        if (file) {
+
+          handleVideo(file);
+
+        }
+
+      }
+    );
+
+
+    /* HANDLE VIDEO */
+
+    function handleVideo(file) {
+
+      const allowedTypes = [
+        "video/mp4",
+        "video/webm",
+        "video/quicktime"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+
+        alert(
+          "Please select an MP4, WebM or MOV video."
+        );
+
+        return;
+
       }
 
-    };
+
+      /*
+        Basic size protection.
+        This demo allows files up to 200 MB.
+      */
+
+      if (file.size > 200 * 1024 * 1024) {
+
+        alert(
+          "Video file must be smaller than 200 MB."
+        );
+
+        return;
+
+      }
+
+
+      selectedFile = file;
+
+      const videoURL =
+        URL.createObjectURL(file);
+
+      videoPreview.src = videoURL;
+
+      previewContainer.style.display =
+        "block";
+
+      formArea.style.display =
+        "none";
+
+      videoIsValid = false;
+
+      submitBtn.disabled = true;
+
+
+      videoPreview.onloadedmetadata =
+        function () {
+
+          const duration =
+            videoPreview.duration;
+
+          const seconds =
+            Math.round(duration);
+
+          durationText.textContent =
+            "Duration: " +
+            formatDuration(seconds);
+
+
+          /*
+            Required:
+            Minimum = 60 seconds
+            Maximum = 90 seconds
+          */
+
+          if (
+            duration >= 60 &&
+            duration <= 90
+          ) {
+
+            durationStatus.textContent =
+              "✓ Valid duration";
+
+            durationStatus.className =
+              "valid";
+
+            videoIsValid = true;
+
+            formArea.style.display =
+              "block";
+
+            checkForm();
+
+          } else {
+
+            durationStatus.textContent =
+              "✕ Must be 60–90 seconds";
+
+            durationStatus.className =
+              "invalid";
+
+            alert(
+              "This video is " +
+              formatDuration(seconds) +
+              " long.\n\n" +
+              "Please select a video between " +
+              "60 and 90 seconds."
+            );
+
+          }
+
+        };
+
+    }
+
+
+    /* FORMAT TIME */
+
+    function formatDuration(seconds) {
+
+      const minutes =
+        Math.floor(seconds / 60);
+
+      const remaining =
+        seconds % 60;
+
+      return (
+        minutes +
+        ":" +
+        String(remaining).padStart(2, "0")
+      );
+
+    }
+
+
+    /* FORM VALIDATION */
+
+    document
+      .getElementById("memberName")
+      .addEventListener(
+        "input",
+        checkForm
+      );
+
+    document
+      .getElementById("videoTitle")
+      .addEventListener(
+        "input",
+        checkForm
+      );
+
+
+    function checkForm() {
+
+      const name =
+        document
+          .getElementById("memberName")
+          .value.trim();
+
+      const title =
+        document
+          .getElementById("videoTitle")
+          .value.trim();
+
+      submitBtn.disabled =
+        !videoIsValid ||
+        name.length < 2 ||
+        title.length < 2;
+
+    }
+
+
+    /* UPLOAD DEMO */
+
+    function uploadVideo() {
+
+      if (!selectedFile || !videoIsValid) {
+
+        alert(
+          "Please select a valid 60–90 second video."
+        );
+
+        return;
+
+      }
+
+
+      const name =
+        document
+          .getElementById("memberName")
+          .value.trim();
+
+      const title =
+        document
+          .getElementById("videoTitle")
+          .value.trim();
+
+      const description =
+        document
+          .getElementById("description")
+          .value.trim();
+
+
+      submitBtn.disabled = true;
+
+      const progressArea =
+        document.getElementById("progressArea");
+
+      const progressFill =
+        document.getElementById("progressFill");
+
+      const progressText =
+        document.getElementById("progressText");
+
+      progressArea.style.display =
+        "block";
+
+
+      /*
+        DEMO UPLOAD PROGRESS
+
+        This only simulates uploading.
+        A real backend/storage API must
+        replace this section.
+      */
+
+      let progress = 0;
+
+      const interval =
+        setInterval(
+          function () {
+
+            progress += Math.floor(
+              Math.random() * 10
+            ) + 5;
+
+            if (progress >= 100) {
+
+              progress = 100;
+
+              clearInterval(interval);
+
+              progressFill.style.width =
+                "100%";
+
+              progressText.textContent =
+                "✓ Video uploaded successfully!";
+
+              addVideoToCommunity(
+                selectedFile,
+                name,
+                title,
+                description
+              );
+
+              setTimeout(
+                resetUploadForm,
+                1500
+              );
+
+            } else {
+
+              progressFill.style.width =
+                progress + "%";
+
+              progressText.textContent =
+                "Uploading " +
+                progress +
+                "%";
+
+            }
+
+          },
+          250
+        );
+
+    }
+
+
+    /* ADD VIDEO TO COMMUNITY */
+
+    function addVideoToCommunity(
+      file,
+      name,
+      title,
+      description
+    ) {
+
+      const grid =
+        document.getElementById("videosGrid");
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "video-card";
+
+
+      const videoURL =
+        URL.createObjectURL(file);
+
+
+      card.innerHTML = `
+
+        <video
+          src="${videoURL}"
+          controls>
+        </video>
+
+        <div class="video-card-content">
+
+          <h3>
+            ${escapeHTML(title)}
+          </h3>
+
+          <p>
+            👤 ${escapeHTML(name)}
+          </p>
+
+          ${
+            description
+              ? `<p style="margin-top:7px;">
+                  ${escapeHTML(description)}
+                </p>`
+              : ""
+          }
+
+        </div>
+
+      `;
+
+
+      grid.prepend(card);
+
+    }
+
+
+    /* SECURITY */
+
+    function escapeHTML(text) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    }
+
+
+    /* RESET */
+
+    function resetUploadForm() {
+
+      videoInput.value = "";
+
+      videoPreview.src = "";
+
+      previewContainer.style.display =
+        "none";
+
+      formArea.style.display =
+        "none";
+
+      document
+        .getElementById("memberName")
+        .value = "";
+
+      document
+        .getElementById("videoTitle")
+        .value = "";
+
+      document
+        .getElementById("description")
+        .value = "";
+
+      document
+        .getElementById("progressArea")
+        .style.display = "none";
+
+      document
+        .getElementById("progressFill")
+        .style.width = "0%";
+
+      videoIsValid = false;
+
+      selectedFile = null;
+
+      submitBtn.disabled = true;
+
+    }
+
+
+    /* SCROLL */
+
+    function scrollToUpload() {
+
+      document
+        .getElementById("uploadSection")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
 
   </script>
 
