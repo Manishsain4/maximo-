@@ -159,10 +159,14 @@
     <main>
         <div class="product-card">
             
-            <!-- Video Box (Hosted Externally on rexx32 account) -->
+            <!-- Video Box (High Speed CDN Multi-Source) -->
             <div class="video-wrapper">
                 <video id="myVideo" controls controlsList="nodownload" disablePictureInPicture oncontextmenu="return false;" preload="auto" playsinline webkit-playsinline>
+                    <!-- Priority 1: jsDelivr High Speed Global CDN -->
+                    <source src="https://cdn.jsdelivr.net/gh/rexx32/video-host@main/product.mp4" type="video/mp4">
+                    <!-- Priority 2: GitHub Pages -->
                     <source src="https://rexx32.github.io/video-host/product.mp4" type="video/mp4">
+                    <!-- Priority 3: GitHack CDN -->
                     <source src="https://raw.githack.com/rexx32/video-host/main/product.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
