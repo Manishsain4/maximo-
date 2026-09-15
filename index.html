@@ -1,1135 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VideoHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Store</title>
+    <style>
+        /* Base Reset & Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-<style>
-*{
-  box-sizing:border-box;
-}
+        /* Header Section */
+        header {
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #000000;
+        }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#070b14;
-  color:white;
-}
+        .brand-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-header{
-  padding:18px;
-  background:#111827;
-  border-bottom:1px solid #263244;
-}
+        .tagline {
+            font-size: 13px;
+            color: #000000;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            font-family: Arial, sans-serif;
+        }
 
-.logo{
-  text-align:center;
-  font-size:25px;
-  font-weight:bold;
-  color:#60a5fa;
-}
+        /* Main Video Card Container */
+        .product-card {
+            border: 2px solid #000000;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-.hero{
-  text-align:center;
-  padding:45px 20px;
-  background:#111827;
-}
+        /* Video Box */
+        .video-wrapper {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #000000;
+            border: 1px solid #000000;
+        }
 
-.hero h1{
-  margin:0 0 10px;
-  font-size:36px;
-}
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-.hero p{
-  margin:0;
-  color:#9ca3af;
-}
+        /* Caption Text */
+        .product-caption {
+            display: block !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: #000000 !important;
+            margin: 20px 0 !important;
+            line-height: 1.5;
+            font-family: Arial, sans-serif;
+            -webkit-user-select: text;
+            user-select: text;
+        }
 
-.container{
-  width:100%;
-  max-width:800px;
-  margin:30px auto;
-  padding:0 15px;
-}
+        /* Full Width Black Buttons */
+        a.buy-btn, 
+        a.buy-btn:visited, 
+        a.buy-btn:link,
+        a.demo-btn,
+        a.demo-btn:visited,
+        a.demo-btn:link,
+        a.proof-btn,
+        a.proof-btn:visited,
+        a.proof-btn:link {
+            display: block !important;
+            width: 100% !important;
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 16px 0 !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+            font-size: 18px !important;
+            border-radius: 6px !important;
+            font-family: Arial, sans-serif !important;
+            border: 2px solid #000000 !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
+        }
 
-.box{
-  background:#111827;
-  border:1px solid #263244;
-  border-radius:18px;
-  padding:20px;
-}
+        a.demo-btn,
+        a.proof-btn {
+            margin-top: 12px !important;
+        }
 
-/* SELECT BUTTON */
+        a.buy-btn:hover,
+        a.demo-btn:hover,
+        a.proof-btn:hover {
+            background-color: #333333 !important;
+        }
 
-#chooseVideo{
-  display:block;
-  width:100%;
-  padding:30px 15px;
-  background:#172554;
-  border:3px dashed #3b82f6;
-  border-radius:15px;
-  text-align:center;
-  cursor:pointer;
-}
+        /* Footer / Description Box */
+        footer {
+            margin-top: 50px;
+            padding: 25px 20px;
+            border: 2px solid #000000;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+        }
 
-#chooseVideo .icon{
-  font-size:50px;
-}
-
-#chooseVideo .big{
-  font-size:20px;
-  font-weight:bold;
-  margin-top:8px;
-}
-
-#chooseVideo .small{
-  color:#a5b4fc;
-  margin-top:8px;
-  font-size:14px;
-}
-
-#videoInput{
-  display:none;
-}
-
-/* SELECTED VIDEO AREA */
-
-#selectedArea{
-  display:none;
-  margin-top:20px;
-}
-
-#preview{
-  width:100%;
-  max-height:450px;
-  display:block;
-  background:#000;
-  border-radius:12px;
-}
-
-.selectedBox{
-  margin-top:12px;
-  padding:15px;
-  border-radius:10px;
-  background:#064e3b;
-  border:2px solid #10b981;
-  text-align:center;
-}
-
-.selectedBox strong{
-  display:block;
-  font-size:18px;
-  color:#d1fae5;
-}
-
-.fileName{
-  margin-top:7px;
-  color:#a7f3d0;
-  font-size:13px;
-  word-break:break-word;
-}
-
-/* UPLOAD BUTTON */
-
-#uploadButton{
-  display:block;
-  width:100%;
-  margin-top:15px;
-  padding:18px;
-  border:0;
-  border-radius:11px;
-  background:#2563eb;
-  color:white;
-  font-size:20px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-#uploadButton:disabled{
-  background:#475569;
-  cursor:not-allowed;
-}
-
-/* FORM */
-
-.field{
-  margin-top:16px;
-}
-
-.field label{
-  display:block;
-  margin-bottom:7px;
-  font-weight:bold;
-}
-
-.field input,
-.field textarea{
-  width:100%;
-  padding:13px;
-  border-radius:9px;
-  border:1px solid #334155;
-  background:#0f172a;
-  color:white;
-  font-size:16px;
-}
-
-.field textarea{
-  min-height:80px;
-}
-
-/* PROGRESS */
-
-#progress{
-  display:none;
-  margin-top:18px;
-}
-
-.progressBg{
-  height:10px;
-  background:#1e293b;
-  border-radius:20px;
-  overflow:hidden;
-}
-
-#progressBar{
-  width:0%;
-  height:100%;
-  background:#22c55e;
-}
-
-#status{
-  text-align:center;
-  margin-top:10px;
-  color:#93c5fd;
-}
-
-/* COMMUNITY */
-
-.community{
-  max-width:1100px;
-  margin:60px auto;
-  padding:0 15px;
-}
-
-.community h2{
-  text-align:center;
-}
-
-#gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-  margin-top:25px;
-}
-
-.card{
-  background:#111827;
-  border:1px solid #263244;
-  border-radius:14px;
-  overflow:hidden;
-}
-
-.card video{
-  width:100%;
-  display:block;
-  background:#000;
-  aspect-ratio:16/9;
-}
-
-.info{
-  padding:14px;
-}
-
-.info h3{
-  margin:0 0 7px;
-}
-
-.info p{
-  margin:5px 0;
-  color:#9ca3af;
-  word-break:break-word;
-}
-
-.message{
-  text-align:center;
-  color:#94a3b8;
-  padding:30px;
-}
-
-footer{
-  text-align:center;
-  color:#64748b;
-  padding:30px;
-  margin-top:50px;
-  border-top:1px solid #1e293b;
-}
-</style>
+        .site-desc {
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            -webkit-user-select: text;
+            user-select: text;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <div class="logo">🎬 VideoHub</div>
-</header>
-
-
-<section class="hero">
-  <h1>Upload Your Video</h1>
-  <p>Choose a video from your phone and upload it.</p>
-</section>
-
-
-<div class="container">
-
-  <div class="box">
-
-    <!-- CHOOSE VIDEO -->
-
-    <label id="chooseVideo" for="videoInput">
-
-      <div class="icon">📱</div>
-
-      <div class="big">
-        CHOOSE VIDEO FROM GALLERY
-      </div>
-
-      <div class="small">
-        Tap here to select your video
-      </div>
-
-    </label>
-
-
-    <input
-      id="videoInput"
-      type="file"
-      accept="video/*"
-    >
-
-
-    <!-- SELECTED VIDEO -->
-
-    <div id="selectedArea">
-
-      <video
-        id="preview"
-        controls
-        playsinline
-      ></video>
-
-
-      <div class="selectedBox">
-
-        <strong>
-          ✅ VIDEO SELECTED
-        </strong>
-
-        <div
-          id="fileName"
-          class="fileName"
-        ></div>
-
-      </div>
-
-
-      <!-- UPLOAD BUTTON -->
-
-      <button
-        id="uploadButton"
-        type="button"
-      >
-        🚀 UPLOAD THIS VIDEO
-      </button>
-
-    </div>
-
-
-    <!-- OPTIONAL DETAILS -->
-
-    <div class="field">
-
-      <label>Your Name (Optional)</label>
-
-      <input
-        id="userName"
-        type="text"
-        placeholder="Enter your name"
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Video Title (Optional)</label>
-
-      <input
-        id="videoTitle"
-        type="text"
-        placeholder="Enter video title"
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Description (Optional)</label>
-
-      <textarea
-        id="description"
-        placeholder="Write something about your video..."
-      ></textarea>
-
-    </div>
-
-
-    <!-- PROGRESS -->
-
-    <div id="progress">
-
-      <div class="progressBg">
-
-        <div id="progressBar"></div>
-
-      </div>
-
-      <div id="status">
-        Uploading...
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- COMMUNITY -->
-
-<section class="community">
-
-  <h2>
-    🌎 Community Videos
-  </h2>
-
-  <div id="gallery">
-
-    <div class="message">
-      Loading videos...
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  © 2026 VideoHub
-</footer>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE
-   ===================================================== */
-
-const SUPABASE_URL =
-  "YOUR_SUPABASE_PROJECT_URL";
-
-const SUPABASE_KEY =
-  "YOUR_SUPABASE_PUBLISHABLE_KEY";
-
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const videoInput =
-  document.getElementById("videoInput");
-
-const selectedArea =
-  document.getElementById("selectedArea");
-
-const preview =
-  document.getElementById("preview");
-
-const fileName =
-  document.getElementById("fileName");
-
-const uploadButton =
-  document.getElementById("uploadButton");
-
-const progress =
-  document.getElementById("progress");
-
-const progressBar =
-  document.getElementById("progressBar");
-
-const status =
-  document.getElementById("status");
-
-
-let selectedFile = null;
-
-
-/* =====================================================
-   WHEN VIDEO IS SELECTED
-   ===================================================== */
-
-videoInput.addEventListener(
-  "change",
-  function(){
-
-    console.log(
-      "File selected:",
-      this.files
-    );
-
-
-    if(
-      !this.files ||
-      this.files.length === 0
-    ){
-      return;
-    }
-
-
-    const file =
-      this.files[0];
-
-
-    if(
-      !file.type.startsWith("video/")
-    ){
-
-      alert(
-        "कृपया video file select करें."
-      );
-
-      return;
-    }
-
-
-    /* SAVE FILE */
-
-    selectedFile =
-      file;
-
-
-    /* CREATE PREVIEW */
-
-    const videoURL =
-      URL.createObjectURL(file);
-
-
-    preview.src =
-      videoURL;
-
-
-    /* SHOW SELECTED AREA */
-
-    selectedArea.style.display =
-      "block";
-
-
-    /* SHOW FILE NAME */
-
-    fileName.textContent =
-      file.name +
-      " • " +
-      formatSize(file.size);
-
-
-    /*
-      MOST IMPORTANT:
-      BUTTON ALWAYS ENABLED
-      AFTER VIDEO SELECTION
-    */
-
-    uploadButton.disabled =
-      false;
-
-
-    uploadButton.style.display =
-      "block";
-
-
-    uploadButton.textContent =
-      "🚀 UPLOAD THIS VIDEO";
-
-
-    /* SCROLL TO UPLOAD BUTTON */
-
-    setTimeout(
-      function(){
-
-        uploadButton.scrollIntoView({
-          behavior:"smooth",
-          block:"center"
+    <!-- Header Section -->
+    <header>
+        <div class="brand-name">DARK STORE</div>
+        <div class="tagline">( wait 5 second and play Vedio, The most Darkest vidios in the world 😲 )</div>
+    </header>
+
+    <!-- Main Content: Single Video Product -->
+    <main>
+        <div class="product-card">
+            
+            <!-- Video Box (Hosted Externally) -->
+            <div class="video-wrapper">
+                <video id="myVideo" controls controlsList="nodownload" disablePictureInPicture oncontextmenu="return false;" preload="auto" playsinline webkit-playsinline>
+                    <source src="https://we0are0back0-max.github.io/video-host/product.mp4" type="video/mp4">
+                    <source src="https://raw.githack.com/rexx32/video-host/main/product.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Product Caption Placeholder -->
+            <p class="product-caption">(Teligram Group) Dark Web
+
+Leaked Video's Group Is available , - Pay after join the group ✓ - Price Only-99₹ 💥</p>
+
+            <!-- Black Buy Now Button -->
+            <a href="https://t.me/Rebel_by_dark_side?text=I%20Am%20See%20Your%20Full%20Demo%20On%20Instagram%20Profile%2C%20yes%20I%20Am%20Ready%20For%20Buy%20Your%20Content%20Group%20In%2099%E2%82%B9" class="buy-btn" target="_blank">Buy Now</a>
+
+            <!-- See Demo Video's Button -->
+            <a href="https://t.me/Jsjsueu_bot" class="demo-btn" target="_blank">See Demo Video's</a>
+
+
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p class="site-desc">2000+ dark web leaked video's is uploaded in group: Instant Support, 100% Verified, Safe Deal. Massage on Teligram App And Buy / First Download Teligram.....</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Disable Right Click / Long Press
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
         });
-
-      },
-      300
-    );
-
-  }
-);
-
-
-/* =====================================================
-   UPLOAD BUTTON
-   ===================================================== */
-
-uploadButton.addEventListener(
-  "click",
-  function(){
-
-    uploadVideo();
-
-  }
-);
-
-
-/* =====================================================
-   UPLOAD VIDEO
-   ===================================================== */
-
-async function uploadVideo(){
-
-  if(!selectedFile){
-
-    alert(
-      "पहले video select करें."
-    );
-
-    return;
-  }
-
-
-  let name =
-    document
-      .getElementById("userName")
-      .value
-      .trim();
-
-
-  let title =
-    document
-      .getElementById("videoTitle")
-      .value
-      .trim();
-
-
-  let description =
-    document
-      .getElementById("description")
-      .value
-      .trim();
-
-
-  if(!name){
-    name = "Anonymous";
-  }
-
-
-  if(!title){
-
-    title =
-      selectedFile.name
-        .replace(/\.[^/.]+$/,"");
-
-  }
-
-
-  uploadButton.disabled =
-    true;
-
-
-  uploadButton.textContent =
-    "⏳ UPLOADING...";
-
-
-  progress.style.display =
-    "block";
-
-
-  progressBar.style.width =
-    "10%";
-
-
-  status.textContent =
-    "Uploading video...";
-
-
-  try{
-
-    /* FILE EXTENSION */
-
-    let extension =
-      "mp4";
-
-
-    if(
-      selectedFile.name.includes(".")
-    ){
-
-      extension =
-        selectedFile.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
-    }
-
-
-    /* UNIQUE FILE */
-
-    const filePath =
-      "uploads/" +
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .substring(2,12) +
-      "." +
-      extension;
-
-
-    progressBar.style.width =
-      "25%";
-
-
-    /* STORAGE UPLOAD */
-
-    const result =
-      await supabaseClient
-        .storage
-        .from("videos")
-        .upload(
-          filePath,
-          selectedFile,
-          {
-            contentType:
-              selectedFile.type,
-
-            cacheControl:
-              "3600",
-
-            upsert:false
-          }
-        );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    progressBar.style.width =
-      "65%";
-
-
-    status.textContent =
-      "Saving video...";
-
-
-    /* PUBLIC URL */
-
-    const publicResult =
-      supabaseClient
-        .storage
-        .from("videos")
-        .getPublicUrl(
-          filePath
-        );
-
-
-    const videoURL =
-      publicResult.data.publicUrl;
-
-
-    /* DATABASE */
-
-    const databaseResult =
-      await supabaseClient
-        .from("videos")
-        .insert({
-
-          name:name,
-
-          title:title,
-
-          description:description,
-
-          video_url:videoURL
-
-        });
-
-
-    if(databaseResult.error){
-
-      throw databaseResult.error;
-
-    }
-
-
-    progressBar.style.width =
-      "100%";
-
-
-    status.textContent =
-      "✅ Upload Complete!";
-
-
-    uploadButton.textContent =
-      "✅ VIDEO UPLOADED";
-
-
-    /* REFRESH GALLERY */
-
-    await loadVideos();
-
-
-    alert(
-      "✅ Video successfully uploaded!"
-    );
-
-
-    /* RESET */
-
-    setTimeout(
-      function(){
-
-        resetForm();
-
-      },
-      500
-    );
-
-  }
-  catch(error){
-
-    console.error(
-      "UPLOAD ERROR:",
-      error
-    );
-
-
-    status.textContent =
-      "❌ Upload failed";
-
-
-    uploadButton.disabled =
-      false;
-
-
-    uploadButton.textContent =
-      "🚀 UPLOAD THIS VIDEO";
-
-
-    alert(
-      "Upload नहीं हुआ:\n\n" +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   COMMUNITY GALLERY
-   ===================================================== */
-
-async function loadVideos(){
-
-  const gallery =
-    document.getElementById(
-      "gallery"
-    );
-
-
-  gallery.innerHTML =
-    '<div class="message">Loading videos...</div>';
-
-
-  const result =
-    await supabaseClient
-      .from("videos")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
-
-
-  if(result.error){
-
-    console.error(
-      result.error
-    );
-
-
-    gallery.innerHTML =
-      '<div class="message">Videos load नहीं हो पाईं.</div>';
-
-    return;
-  }
-
-
-  const videos =
-    result.data;
-
-
-  gallery.innerHTML =
-    "";
-
-
-  if(
-    !videos ||
-    videos.length === 0
-  ){
-
-    gallery.innerHTML =
-      '<div class="message">अभी कोई video upload नहीं हुई.</div>';
-
-    return;
-  }
-
-
-  videos.forEach(
-    function(video){
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-
-      card.className =
-        "card";
-
-
-      const player =
-        document.createElement(
-          "video"
-        );
-
-
-      player.src =
-        video.video_url;
-
-      player.controls =
-        true;
-
-      player.playsInline =
-        true;
-
-      player.preload =
-        "metadata";
-
-
-      const info =
-        document.createElement(
-          "div"
-        );
-
-
-      info.className =
-        "info";
-
-
-      const heading =
-        document.createElement(
-          "h3"
-        );
-
-
-      heading.textContent =
-        video.title ||
-        "Untitled Video";
-
-
-      const person =
-        document.createElement(
-          "p"
-        );
-
-
-      person.textContent =
-        "👤 " +
-        (video.name ||
-        "Anonymous");
-
-
-      info.appendChild(
-        heading
-      );
-
-      info.appendChild(
-        person
-      );
-
-
-      if(
-        video.description
-      ){
-
-        const desc =
-          document.createElement(
-            "p"
-          );
-
-
-        desc.textContent =
-          video.description;
-
-
-        info.appendChild(
-          desc
-        );
-
-      }
-
-
-      card.appendChild(
-        player
-      );
-
-      card.appendChild(
-        info
-      );
-
-
-      gallery.appendChild(
-        card
-      );
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   RESET
-   ===================================================== */
-
-function resetForm(){
-
-  selectedFile =
-    null;
-
-
-  videoInput.value =
-    "";
-
-
-  preview.src =
-    "";
-
-
-  selectedArea.style.display =
-    "none";
-
-
-  document.getElementById(
-    "userName"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "videoTitle"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "description"
-  ).value =
-    "";
-
-
-  uploadButton.disabled =
-    true;
-
-
-  uploadButton.textContent =
-    "🚀 UPLOAD THIS VIDEO";
-
-
-  progress.style.display =
-    "none";
-
-
-  progressBar.style.width =
-    "0%";
-
-
-  status.textContent =
-    "";
-
-}
-
-
-/* =====================================================
-   FILE SIZE
-   ===================================================== */
-
-function formatSize(bytes){
-
-  if(bytes < 1024){
-    return bytes + " B";
-  }
-
-  if(bytes < 1024 * 1024){
-    return (
-      (bytes / 1024).toFixed(1)
-      + " KB"
-    );
-  }
-
-  if(bytes < 1024 * 1024 * 1024){
-    return (
-      (bytes / (1024*1024)).toFixed(1)
-      + " MB"
-    );
-  }
-
-  return (
-    (bytes /
-      (1024*1024*1024)
-    ).toFixed(1)
-    + " GB"
-  );
-
-}
-
-
-/* =====================================================
-   LOAD
-   ===================================================== */
-
-loadVideos();
-
-</script>
+    </script>
 
 </body>
 </html>
