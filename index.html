@@ -24,7 +24,7 @@
         body {
             background-color: #ffffff;
             color: #000000;
-            font-family: Arial, Helvetica, sans-serif; /* Normal Clean Font */
+            font-family: Arial, Helvetica, sans-serif;
             padding: 15px;
             max-width: 650px;
             margin: 0 auto;
@@ -46,37 +46,37 @@
         }
 
         .popup-box {
-            border: 1px solid #000000;
+            border: 2px solid #000000;
             background-color: #ffffff;
-            padding: 25px 20px;
-            border-radius: 8px;
+            padding: 30px 20px;
+            border-radius: 10px;
             text-align: center;
-            max-width: 380px;
+            max-width: 420px;
             width: 100%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
         .popup-text {
-            font-size: 16px;
-            font-weight: normal;
+            font-size: 20px; /* Bada Font */
+            font-weight: bold;
             color: #000000;
-            margin-bottom: 20px;
-            line-height: 1.4;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
         .popup-buttons {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
         }
 
         .popup-btn {
             flex: 1;
-            padding: 12px 0;
-            font-size: 15px;
-            font-weight: normal;
-            border: 1px solid #000000;
-            border-radius: 6px;
+            padding: 14px 0;
+            font-size: 18px; /* Bada Font */
+            font-weight: bold;
+            border: 2px solid #000000;
+            border-radius: 8px;
             cursor: pointer;
         }
 
@@ -97,23 +97,23 @@
 
         /* Header / Web Title */
         header {
-            padding: 10px 0 15px 0;
+            padding: 15px 0 20px 0;
             text-align: left;
         }
 
         .brand-name {
-            font-size: 20px;
-            font-weight: normal;
+            font-size: 26px; /* Bada Header Font */
+            font-weight: bold;
             color: #000000;
             letter-spacing: 0.5px;
         }
 
-        /* Video Container (YouTube Style - No Outer Box) */
+        /* Video Container */
         .video-wrapper {
             width: 100%;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background-color: #000000;
         }
 
@@ -126,12 +126,12 @@
         /* Multi-line & Bullet Point Supported Caption */
         .product-caption {
             display: block;
-            font-size: 15px;
+            font-size: 18px; /* Bada Caption Font */
             font-weight: normal;
             color: #111111;
-            margin: 15px 0;
-            line-height: 1.6;
-            white-space: pre-line; /* Isse line breaks aur bullet points exactly line ke niche aayenge */
+            margin: 20px 0;
+            line-height: 1.7;
+            white-space: pre-line;
             -webkit-user-select: text;
             user-select: text;
         }
@@ -139,18 +139,18 @@
         /* Side-by-Side Action Buttons */
         .action-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 25px;
             width: 100%;
         }
 
         .btn-action {
             flex: 1;
-            padding: 14px 0;
+            padding: 16px 0;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 18px; /* Bada Button Font */
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
             text-align: center;
             box-sizing: border-box;
             display: block;
@@ -160,24 +160,24 @@
         .demo-btn {
             background-color: #000000;
             color: #ffffff;
-            border: 1px solid #000000;
+            border: 2px solid #000000;
         }
 
         /* Right Button: Buy Now (Blue) */
         .buy-btn {
             background-color: #0088cc;
             color: #ffffff;
-            border: 1px solid #0088cc;
+            border: 2px solid #0088cc;
         }
 
         /* Support ID Footer Section */
         .support-section {
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eeeeee;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #dddddd;
             text-align: center;
-            font-size: 14px;
-            color: #333333;
+            font-size: 16px; /* Bada Support Font */
+            color: #222222;
         }
 
         .support-link {
@@ -214,7 +214,7 @@
 
         <!-- Main Content -->
         <main>
-            <!-- YouTube Style Direct Video Player -->
+            <!-- Direct Video Player -->
             <div class="video-wrapper">
                 <video id="myVideo" controls controlsList="nodownload" disablePictureInPicture oncontextmenu="return false;" preload="auto" playsinline webkit-playsinline>
                     <source src="https://cdn.jsdelivr.net/gh/rexx32/video-host@main/product2.mp4" type="video/mp4">
@@ -226,11 +226,9 @@
 
             <!-- Product Caption (Line Breaks & Bullet Points Supported) -->
             <div class="product-caption">
-• D-web Teligram Group Available ✓
-• really Mom's son, Dad Doughter, Another onle under-18 5,000 Leaked Video's is available in group ✓
-• Add First For Trust Issues✓ 
-• One time Purchase life time access ( price only - 99₹ ) 
-• 
+• .....line 1 caption.....
+• .....line 2 caption.....
+• .....line 3 caption.....
             </div>
 
             <!-- Side-by-Side Buttons -->
