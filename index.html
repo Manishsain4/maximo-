@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Store</title>
+    <title>MAXX — DEMO VIDEO'S WEB</title>
+    
+    <!-- Anti-Bot & Anti-AI Crawler Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="bingbot" content="noindex, nofollow">
+
     <style>
-        /* Base Reset & Styling */
+        /* Base Reset & Normal Styling */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
         body {
             background-color: #ffffff;
             color: #000000;
-            font-family: 'Courier New', Courier, monospace, sans-serif;
-            padding: 20px;
-            max-width: 800px;
+            font-family: Arial, Helvetica, sans-serif; /* Normal Clean Font */
+            padding: 15px;
+            max-width: 650px;
             margin: 0 auto;
-            position: relative;
         }
 
         /* 18+ & Human Verification Pop-up Overlay */
@@ -35,7 +37,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff; /* Pura White Background */
+            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,41 +46,38 @@
         }
 
         .popup-box {
-            border: 2px solid #000000;
+            border: 1px solid #000000;
             background-color: #ffffff;
-            padding: 30px 20px;
+            padding: 25px 20px;
             border-radius: 8px;
             text-align: center;
-            max-width: 420px;
+            max-width: 380px;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .popup-text {
-            font-size: 17px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: normal;
             color: #000000;
-            margin-bottom: 25px;
-            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
             line-height: 1.4;
         }
 
         .popup-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
         }
 
         .popup-btn {
             flex: 1;
-            padding: 14px 0;
-            font-size: 16px;
-            font-weight: bold;
-            border: 2px solid #000000;
+            padding: 12px 0;
+            font-size: 15px;
+            font-weight: normal;
+            border: 1px solid #000000;
             border-radius: 6px;
             cursor: pointer;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.2s ease;
         }
 
         .btn-yes {
@@ -86,67 +85,36 @@
             color: #ffffff;
         }
 
-        .btn-yes:hover {
-            background-color: #333333;
-        }
-
         .btn-no {
             background-color: #ffffff;
             color: #000000;
         }
 
-        .btn-no:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Main Site Content Container (Hidden by default until 'Yes' clicked) */
+        /* Main Site Content Container (Hidden until verified) */
         .site-container {
             display: none;
         }
 
-        /* Header Section */
+        /* Header / Web Title */
         header {
-            padding: 15px 0;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #000000;
+            padding: 10px 0 15px 0;
+            text-align: left;
         }
 
         .brand-name {
-            font-size: 32px;
-            font-weight: 900;
+            font-size: 20px;
+            font-weight: normal;
             color: #000000;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .tagline {
-            font-size: 13px;
-            color: #000000;
-            font-weight: bold;
             letter-spacing: 0.5px;
-            font-family: Arial, sans-serif;
         }
 
-        /* Main Video Card Container */
-        .product-card {
-            border: 2px solid #000000;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        /* Video Box */
+        /* Video Container (YouTube Style - No Outer Box) */
         .video-wrapper {
             width: 100%;
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background-color: #000000;
-            border: 1px solid #000000;
         }
 
         .video-wrapper video {
@@ -155,72 +123,71 @@
             display: block;
         }
 
-        /* Caption Text */
+        /* Multi-line & Bullet Point Supported Caption */
         .product-caption {
-            display: block !important;
-            font-size: 18px !important;
-            font-weight: bold !important;
-            color: #000000 !important;
-            margin: 20px 0 !important;
-            line-height: 1.5;
-            font-family: Arial, sans-serif;
-            -webkit-user-select: text;
-            user-select: text;
-        }
-
-        /* Full Width Black Buttons */
-        a.buy-btn, 
-        a.buy-btn:visited, 
-        a.buy-btn:link,
-        a.demo-btn,
-        a.demo-btn:visited,
-        a.demo-btn:link,
-        a.proof-btn,
-        a.proof-btn:visited,
-        a.proof-btn:link {
-            display: block !important;
-            width: 100% !important;
-            background-color: #000000 !important;
-            color: #ffffff !important;
-            padding: 16px 0 !important;
-            text-decoration: none !important;
-            font-weight: bold !important;
-            font-size: 18px !important;
-            border-radius: 6px !important;
-            font-family: Arial, sans-serif !important;
-            border: 2px solid #000000 !important;
-            text-align: center !important;
-            box-sizing: border-box !important;
-        }
-
-        a.demo-btn,
-        a.proof-btn {
-            margin-top: 12px !important;
-        }
-
-        a.buy-btn:hover,
-        a.demo-btn:hover,
-        a.proof-btn:hover {
-            background-color: #333333 !important;
-        }
-
-        /* Footer / Description Box */
-        footer {
-            margin-top: 50px;
-            padding: 25px 20px;
-            border: 2px solid #000000;
-            text-align: center;
-            background-color: #ffffff;
-            border-radius: 8px;
-        }
-
-        .site-desc {
-            font-size: 14px;
-            color: #000000;
+            display: block;
+            font-size: 15px;
+            font-weight: normal;
+            color: #111111;
+            margin: 15px 0;
             line-height: 1.6;
-            font-family: Arial, sans-serif;
+            white-space: pre-line; /* Isse line breaks aur bullet points exactly line ke niche aayenge */
             -webkit-user-select: text;
             user-select: text;
+        }
+
+        /* Side-by-Side Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 14px 0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        /* Left Button: See Demo Video's (Black) */
+        .demo-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #000000;
+        }
+
+        /* Right Button: Buy Now (Blue) */
+        .buy-btn {
+            background-color: #0088cc;
+            color: #ffffff;
+            border: 1px solid #0088cc;
+        }
+
+        /* Support ID Footer Section */
+        .support-section {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #eeeeee;
+            text-align: center;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .support-link {
+            color: #0088cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .support-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -239,64 +206,73 @@
 
     <!-- Main Website Content -->
     <div class="site-container" id="siteContent">
-        <!-- Header Section -->
+        
+        <!-- Header Title -->
         <header>
-            <div class="brand-name">DARK STORE</div>
-            <div class="tagline">( The most Darkest vidios in the world 😲 )</div>
+            <h1 class="brand-name">MAXX — DEMO VIDEO'S WEB</h1>
         </header>
 
-        <!-- Main Content: Single Video Product -->
+        <!-- Main Content -->
         <main>
-            <div class="product-card">
-                
-                <!-- Video Box -->
-                <div class="video-wrapper">
-                    <video id="myVideo" controls controlsList="nodownload" disablePictureInPicture oncontextmenu="return false;" preload="auto" playsinline webkit-playsinline>
-                        <source src="https://cdn.jsdelivr.net/gh/rexx32/video-host@main/product.mp4" type="video/mp4">
-                        <source src="https://rexx32.github.io/video-host/product.mp4" type="video/mp4">
-                        <source src="https://raw.githack.com/rexx32/video-host/main/product.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+            <!-- YouTube Style Direct Video Player -->
+            <div class="video-wrapper">
+                <video id="myVideo" controls controlsList="nodownload" disablePictureInPicture oncontextmenu="return false;" preload="auto" playsinline webkit-playsinline>
+                    <source src="https://cdn.jsdelivr.net/gh/rexx32/video-host@main/product.mp4" type="video/mp4">
+                    <source src="https://rexx32.github.io/video-host/product.mp4" type="video/mp4">
+                    <source src="https://raw.githack.com/rexx32/video-host/main/product.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
 
-                <!-- Product Caption Placeholder -->
-                <p class="product-caption">.....caption.....</p>
+            <!-- Product Caption (Line Breaks & Bullet Points Supported) -->
+            <div class="product-caption">
+• .....line 1 caption.....
+• .....line 2 caption.....
+• .....line 3 caption.....
+            </div>
 
-                <!-- Black Buy Now Button -->
-                <a href="https://t.me/Rebel_by_dark_side?text=I%20Am%20See%20Your%20Full%20Demo%20On%20Instagram%20Profile%2C%20yes%20I%20Am%20Ready%20For%20Buy%20Your%20Content%20Group%20In%2099%E2%82%B9" class="buy-btn" target="_blank">Buy Now</a>
+            <!-- Side-by-Side Buttons -->
+            <div class="action-buttons">
+                <!-- Left Button: Black See Demo Video's -->
+                <a href=".........link......" class="btn-action demo-btn" target="_blank">See Demo Video's</a>
 
-                <!-- See Demo Video's Button -->
-                <a href=".........link......" class="demo-btn" target="_blank">See Demo Video's</a>
-
-                <!-- Check Proof Button -->
-                <a href="https://t.me/+r0zUPIsB5hIyMDhl" class="proof-btn" target="_blank">Check Proof</a>
-
+                <!-- Right Button: Blue Buy Now -->
+                <a href="https://t.me/Rebel_by_dark_side?text=I%20see%20your%20demo%20web%20properly%20%27%20I%20can%20buy%20your%20D-web%20Group%20in%2099%E2%82%B9" class="btn-action buy-btn" target="_blank">Buy Now</a>
             </div>
         </main>
 
-        <!-- Footer Section -->
-        <footer>
-            <p class="site-desc">.....site-description.....</p>
-        </footer>
+        <!-- Support Info Section -->
+        <div class="support-section">
+            Support Id - Telegram - <a href="https://t.me/Rebel_by_dark_side" target="_blank" class="support-link">t.me/Rebel_by_dark_side</a>
+        </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Security & Functionality Scripts -->
     <script>
+        // AI & Automated Bot Detection
+        function isBot() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const botPattern = /bot|googlebot|crawler|spider|robot|crawling|headlesschrome|puppeteer|selenium|phantom/i;
+            return navigator.webdriver || botPattern.test(userAgent);
+        }
+
         // Verification Handler Function
         function verifyUser(isYes) {
+            if (isBot()) {
+                window.location.href = "https://www.google.com";
+                return;
+            }
+
             if (isYes) {
-                // Pop-up hide karo
                 document.getElementById('verificationPopup').style.display = 'none';
-                // Main site show karo
                 document.getElementById('siteContent').style.display = 'block';
             } else {
-                // Agar No click kare to Google par redirect kar do
-                alert("Access Denied! You must be 18+ to view this site.");
+                alert("Access Denied!");
                 window.location.href = "https://www.google.com";
             }
         }
 
-        // Disable Right Click / Long Press
+        // Disable Right Click & Long Press
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
