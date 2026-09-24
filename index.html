@@ -10,6 +10,19 @@
     <meta name="googlebot" content="noindex, nofollow">
     <meta name="bingbot" content="noindex, nofollow">
 
+    <!-- Fix 3: Instagram In-App Browser Auto-Bypass to Chrome -->
+    <script>
+        (function() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            var isInstagram = (ua.indexOf('Instagram') > -1) || (ua.indexOf('FBAN') > -1) || (ua.indexOf('FBAV') > -1);
+            
+            if (isInstagram && /Android/i.test(ua)) {
+                var currentUrl = window.location.href.replace(/^https?:\/\//, '');
+                window.location.href = "intent://" + currentUrl + "#Intent;scheme=https;package=com.android.chrome;end";
+            }
+        })();
+    </script>
+
     <style>
         /* Base Reset & Normal Styling */
         * {
@@ -57,7 +70,7 @@
         }
 
         .popup-text {
-            font-size: 20px; /* Bada Font */
+            font-size: 20px;
             font-weight: bold;
             color: #000000;
             margin-bottom: 25px;
@@ -73,7 +86,7 @@
         .popup-btn {
             flex: 1;
             padding: 14px 0;
-            font-size: 18px; /* Bada Font */
+            font-size: 18px;
             font-weight: bold;
             border: 2px solid #000000;
             border-radius: 8px;
@@ -102,7 +115,7 @@
         }
 
         .brand-name {
-            font-size: 26px; /* Bada Header Font */
+            font-size: 26px;
             font-weight: bold;
             color: #000000;
             letter-spacing: 0.5px;
@@ -126,7 +139,7 @@
         /* Multi-line & Bullet Point Supported Caption */
         .product-caption {
             display: block;
-            font-size: 18px; /* Bada Caption Font */
+            font-size: 18px;
             font-weight: normal;
             color: #111111;
             margin: 20px 0;
@@ -148,7 +161,7 @@
             flex: 1;
             padding: 16px 0;
             text-decoration: none;
-            font-size: 18px; /* Bada Button Font */
+            font-size: 18px;
             font-weight: bold;
             border-radius: 8px;
             text-align: center;
@@ -176,7 +189,7 @@
             padding-top: 20px;
             border-top: 1px solid #dddddd;
             text-align: center;
-            font-size: 16px; /* Bada Support Font */
+            font-size: 16px;
             color: #222222;
         }
 
@@ -226,27 +239,24 @@
 
             <!-- Product Caption (Line Breaks & Bullet Points Supported) -->
             <div class="product-caption">
-🕸️ D-AR-K Web Leaked Video's Telegram Group Is Available 
-🥵 5,000+ Vedeo's Uploaded, 500+ Vedeos upload in every month!
-💥 Really Mom's Son Vedeo's, Dad Doughter Vedeo's ( under -18, under -10 )
-🤤One time purches — Life time Join access 
-💰 First Join For Trust Issue ✓
-Group Price Only 99₹
-    </div>
+• .....line 1 caption.....
+• .....line 2 caption.....
+• .....line 3 caption.....
+            </div>
 
-            <!-- Side-by-Side Buttons -->
+            <!-- Side-by-Side Buttons (target="_blank" removed for In-App Browser compatibility) -->
             <div class="action-buttons">
                 <!-- Left Button: Black See Demo Video's -->
-                <a href="https://t.me/Jsjsueu_bot" class="btn-action demo-btn" target="_blank">See Demo Video's</a>
+                <a href=".........link......" class="btn-action demo-btn">See Demo Video's</a>
 
                 <!-- Right Button: Blue Buy Now -->
-                <a href="https://t.me/Rebel_by_dark_side?text=I%20see%20your%20demo%20web%20properly%20%27%20I%20can%20buy%20your%20D-web%20Group%20in%2099%E2%82%B9" class="btn-action buy-btn" target="_blank">Buy Now</a>
+                <a href="https://t.me/Rebel_by_dark_side?text=I%20see%20your%20demo%20web%20properly%20%27%20I%20can%20buy%20your%20D-web%20Group%20in%2099%E2%82%B9" class="btn-action buy-btn">Buy Now</a>
             </div>
         </main>
 
         <!-- Support Info Section -->
         <div class="support-section">
-            Support Id - Telegram - <a href="https://t.me/Rebel_by_dark_side" target="_blank" class="support-link">t.me/Rebel_by_dark_side</a>
+            Support Id - Telegram - <a href="https://t.me/Rebel_by_dark_side" class="support-link">t.me/Rebel_by_dark_side</a>
         </div>
     </div>
 
